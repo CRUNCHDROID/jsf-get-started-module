@@ -5,14 +5,23 @@
  */
 package com.crunchdroid.services;
 
-import com.crunchdroid.entities.Person;
+import java.util.List;
 
 /**
  *
  * @author Riad YOUSFI
+ * @param <E> entity
  */
-public interface IService {
-    
-    public void save(Person person);
-    
+public interface IService<E> {
+
+    public void save(E entity);
+
+    public void update(E entity);
+
+    public E find(Integer id);
+
+    public List<E> findAll();
+
+    public void delete(E entity);
+
 }

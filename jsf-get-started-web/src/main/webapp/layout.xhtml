@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      >
+    <h:head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <meta name="description" content=""/>
+        <meta name="author" content=""/>
+        <title>SB Admin 2 - Bootstrap Admin Theme</title>
+        <h:outputStylesheet library="bower_components/bootstrap/dist/css" name="bootstrap.css" />
+        <h:outputStylesheet library="bower_components/metisMenu/dist" name="metisMenu.min.css" />
+        <h:outputStylesheet library="dist/css" name="sb-admin-2.css" />
+        <h:outputStylesheet library="bower_components/font-awesome/css" name="font-awesome.css" />
+    </h:head>
+    <h:body>
+        <div id="wrapper">
+            <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="index">SB Admin v2.0</a>
+                </div>
+                <ui:include src="navbar-top.xhtml"/>
+                <ui:include src="navigation.xhtml"/>
+            </nav>
+            <ui:insert name="content">
+            </ui:insert>
+        </div>
+        <h:outputScript library="bower_components/jquery/dist" name="jquery.min.js"/>
+        <h:outputScript library="bower_components/bootstrap/dist/js" name="bootstrap.js"/>
+        <h:outputScript library="bower_components/metisMenu/dist" name="metisMenu.min.js"/>
+        <h:outputScript library="dist/js" name="sb-admin-2.js"/>
+    </h:body>
+</html>
+

@@ -1,44 +1,70 @@
 package com.crunchdroid.controller;
 
-import com.crunchdroid.entities.Person;
 import com.crunchdroid.services.IServiceLocal;
-import java.io.IOException;
+import java.io.Serializable;
 import javax.ejb.EJB;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 
 /**
  *
- * @author Riad YOUSFI
+ * @author cdi420
  */
-@WebServlet(name = "PersonController", urlPatterns = {"/Person"})
-public class PersonController extends HttpServlet {
+@ManagedBean
+@SessionScoped
+public class PersonController implements Serializable {
 
     @EJB
     private IServiceLocal service;
 
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Person p = new Person();
-        p.setLastname("YOUSFI");
-        p.setFirstname("Soumaya");
-        p.setAge(29);
-        service.save(p);
-        request.setAttribute("person", p);
-//        request.setAttribute("person", "Riad");
-        request.getRequestDispatcher("/index.jsp").forward(request, response);
+    private Integer id;
+    private String firstname;
+    private String lastname;
+    private Integer age;
+
+    public PersonController() {
     }
 
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        processRequest(request, response);
+    public PersonController(String firstname, String lastname, Integer age) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.age = age;
     }
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        processRequest(request, response);
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    public void save() {
+        service.save(this);
     }
 
 }

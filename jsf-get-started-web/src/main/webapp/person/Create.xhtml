@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      >
+    <ui:composition template="layout.xhtml">
+        <ui:define name="content">
+            <div id="page-wrapper">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">Create</h1>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                Basic Form Elements
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-lg-3"></div>
+                                    <div class="col-lg-6">
+                                        <h:form role="form">
+                                            <div class="form-group">
+                                                <h:outputLabel value=""  for="firstname"/>
+                                                <h:inputText value="" class="form-control" id="firstname"/>
+                                            </div>
+                                            <div class="form-group">
+                                                <h:outputLabel value=""  for="lastname"/>
+                                                <h:inputText value="" class="form-control" id="lastname"/>
+                                            </div>
+                                            <div class="form-group">
+                                                <h:outputLabel value=""  for="age"/>
+                                                <h:inputText value="" class="form-control" id="age"/>
+                                            </div>
+                                        </h:form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ui:define>
+    </ui:composition>
+</html>

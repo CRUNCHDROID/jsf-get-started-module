@@ -10,8 +10,9 @@ import javax.ejb.Remote;
 /**
  *
  * @author Riad YOUSFI
+ * @param <E> entity
  */
 @Remote
-public interface IServiceRemote extends IService {
+public interface IServiceRemote<E> extends IService<E> {
 
 }

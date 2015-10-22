@@ -5,8 +5,9 @@ import javax.ejb.Local;
 /**
  *
  * @author Riad YOUSFI
+ * @param <E> entity
  */
 @Local
-public interface IDaoLocal extends IDao {
+public interface IDaoLocal<E> extends IDao<E> {
 
 }

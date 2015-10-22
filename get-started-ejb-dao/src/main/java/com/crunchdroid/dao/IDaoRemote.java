@@ -5,8 +5,9 @@ import javax.ejb.Remote;
 /**
  *
  * @author Riad YOUSFI
+ * @param <E> entity
  */
 @Remote
-public interface IDaoRemote extends IDao {
+public interface IDaoRemote<E> extends IDao<E> {
 
 }

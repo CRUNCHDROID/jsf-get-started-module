@@ -10,8 +10,9 @@ import javax.ejb.Local;
 /**
  *
  * @author Riad YOUSFI
+ * @param <E> entity
  */
 @Local
-public interface IServiceLocal extends IService {
+public interface IServiceLocal<E> extends IService<E> {
 
 }
