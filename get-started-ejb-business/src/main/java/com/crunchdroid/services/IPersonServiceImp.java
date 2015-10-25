@@ -45,4 +45,19 @@ public class IPersonServiceImp implements IServiceLocal<Person>, IServiceRemote<
         dao.delete(person);
     }
 
+    @Override
+    public void delete(Integer id) {
+        dao.delete(id);
+    }
+
+    @Override
+    public List<Person> findRange(int startPosition, int maxResult) {
+        return dao.findRange(startPosition, maxResult);
+    }
+
+    @Override
+    public int count() {
+        return dao.count();
+    }
+
 }

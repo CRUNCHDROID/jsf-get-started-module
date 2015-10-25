@@ -24,4 +24,10 @@ public interface IService<E> {
 
     public void delete(E entity);
 
+    public void delete(Integer id);
+
+    public List<E> findRange(int startPosition, int maxResult);
+
+    public int count();
+
 }

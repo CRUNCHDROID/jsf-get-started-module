@@ -1,10 +1,14 @@
 package com.crunchdroid.controller;
 
+import com.crunchdroid.entities.Person;
+import com.crunchdroid.helper.PaginationHelper;
 import com.crunchdroid.services.IServiceLocal;
 import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.model.DataModel;
+import javax.faces.model.ListDataModel;
 
 /**
  *
@@ -17,6 +21,10 @@ public class PersonController implements Serializable {
     @EJB
     private IServiceLocal service;
 
+    private PaginationHelper pagination;
+
+    private DataModel people = null;
+
     private Integer id;
     private String firstname;
     private String lastname;
@@ -25,10 +33,29 @@ public class PersonController implements Serializable {
     public PersonController() {
     }
 
-    public PersonController(String firstname, String lastname, Integer age) {
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.age = age;
+    public PaginationHelper getPagination() {
+        if (pagination == null) {
+            pagination = new PaginationHelper(4) {
+                @Override
+                public int getItemsCount() {
+                    return service.count();
+                }
+
+                @Override
+                public DataModel createPageDataModel() {
+                    return new ListDataModel(service.findRange(getFirstItem(), getPageSize()));
+                }
+            };
+        }
+        return pagination;
+    }
+
+    public DataModel getPeople() {
+        if (people == null) {
+            getPagination().getItemsCount();
+            people = getPagination().createPageDataModel();
+        }
+        return people;
     }
 
     public Integer getId() {
@@ -63,8 +90,72 @@ public class PersonController implements Serializable {
         this.age = age;
     }
 
-    public void save() {
-        service.save(this);
+    public String delete(Integer id) {
+        service.delete(id);
+        people = null;
+        pagination = null;
+        return goList();
+    }
+
+    public String goCreate() {
+        return "Create";
+    }
+
+    public String save() {
+        Person p = new Person();
+        p.setFirstname(firstname);
+        p.setLastname(lastname);
+        p.setAge(age);
+        service.save(p);
+        people = null;
+        pagination = null;
+        return goList();
+    }
+
+    public String goEdit(Integer id) {
+        Person p = (Person) service.find(id);
+        this.id = p.getId();
+        this.firstname = p.getFirstname();
+        this.lastname = p.getLastname();
+        this.age = p.getAge();
+        return "Edit";
+    }
+
+    public String update() {
+        Person p = new Person();
+        p.setId(id);
+        p.setFirstname(firstname);
+        p.setLastname(lastname);
+        p.setAge(age);
+        service.update(p);
+        people = null;
+        return goList();
+    }
+
+    public String goList() {
+        this.id = null;
+        this.firstname = null;
+        this.lastname = null;
+        this.age = null;
+        return "List";
+    }
+
+    public String previous() {
+        getPagination().previousPage();
+        people = null;
+        return "List";
+    }
+
+    public String next() {
+        getPagination().nextPage();
+        people = null;
+        return "List";
+    }
+
+    public String goPage(int page) {
+        getPagination().goPage(page);
+        people = null;
+        return "List";
     }
 
 }

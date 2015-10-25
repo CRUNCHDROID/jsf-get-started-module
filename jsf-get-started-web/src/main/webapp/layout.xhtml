@@ -10,7 +10,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <meta name="description" content=""/>
         <meta name="author" content=""/>
-        <title>SB Admin 2 - Bootstrap Admin Theme</title>
+        <title><ui:insert name="title">JSF - Admin</ui:insert></title>
         <h:outputStylesheet library="bower_components/bootstrap/dist/css" name="bootstrap.css" />
         <h:outputStylesheet library="bower_components/metisMenu/dist" name="metisMenu.min.css" />
         <h:outputStylesheet library="dist/css" name="sb-admin-2.css" />
@@ -26,7 +26,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="index">SB Admin v2.0</a>
+                    <h:link outcome="/index" class="navbar-brand" value="#{msg['application.name']}"/>
                 </div>
                 <ui:include src="navbar-top.xhtml"/>
                 <ui:include src="navigation.xhtml"/>

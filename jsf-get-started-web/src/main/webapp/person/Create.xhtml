@@ -2,22 +2,27 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html"
       >
-    <ui:composition template="layout.xhtml">
+    <ui:composition template="/layout.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{msg['title.person']}"></h:outputText>
+        </ui:define>
         <ui:define name="content">
             <div id="page-wrapper">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">Create</h1>
+                        <h1 class="page-header"><h:outputText value="#{msg['title.person']}"></h:outputText></h1>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                Basic Form Elements
+                                <h:outputText value="#{msg.create}"></h:outputText>
+                                <h:form>
+                                    <h:commandLink action="#{personController.goList}" value="#{msg.list}" class="btn btn-outline btn-primary btn-xs pull-right"/>
+                                </h:form>
                             </div>
                             <div class="panel-body">
                                 <div class="row">
@@ -25,17 +30,18 @@
                                     <div class="col-lg-6">
                                         <h:form role="form">
                                             <div class="form-group">
-                                                <h:outputLabel value=""  for="firstname"/>
-                                                <h:inputText value="" class="form-control" id="firstname"/>
+                                                <h:outputLabel value="#{msg.firstname}"  for="firstname"/>
+                                                <h:inputText value="#{personController.firstname}" class="form-control" id="firstname" required="true" requiredMessage="#{msg['validator.required']}"/>
                                             </div>
                                             <div class="form-group">
-                                                <h:outputLabel value=""  for="lastname"/>
-                                                <h:inputText value="" class="form-control" id="lastname"/>
+                                                <h:outputLabel value="#{msg.lastname}"  for="lastname"/>
+                                                <h:inputText value="#{personController.lastname}" class="form-control" id="lastname" required="true" requiredMessage="#{msg['validator.required']}"/>
                                             </div>
                                             <div class="form-group">
-                                                <h:outputLabel value=""  for="age"/>
-                                                <h:inputText value="" class="form-control" id="age"/>
+                                                <h:outputLabel value="#{msg.age}" for="age"/>
+                                                <h:inputText value="#{personController.age}" class="form-control" id="age" required="true" requiredMessage="#{msg['validator.required']}"/>
                                             </div>
+                                            <h:commandLink action="#{personController.save}" value="#{msg.submit}" class="btn btn-default pull-right"/>
                                         </h:form>
                                     </div>
                                 </div>
