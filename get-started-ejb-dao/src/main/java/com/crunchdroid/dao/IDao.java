@@ -13,15 +13,12 @@ public interface IDao<E> {
 
     public void update(E entity);
 
-    public E find(Integer id);
+    public E findById(Integer id);
 
     public List<E> findAll();
 
     public void delete(E entity);
 
-    public void delete(Integer id);
+    public void deleteById(Integer id);
 
-    public List<E> findRange(int startPosition, int maxResult);
-    
-    public int count();
 }

@@ -8,6 +8,6 @@ import javax.ejb.Remote;
  * @param <E> entity
  */
 @Remote
-public interface IDaoRemote<E> extends IDao<E> {
+public interface IDaoPersonRemote<E> extends IDao<E> {
 
 }

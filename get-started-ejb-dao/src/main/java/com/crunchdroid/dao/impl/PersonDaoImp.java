@@ -1,5 +1,7 @@
-package com.crunchdroid.dao;
+package com.crunchdroid.dao.impl;
 
+import com.crunchdroid.dao.IDaoPersonLocal;
+import com.crunchdroid.dao.IDaoPersonRemote;
 import com.crunchdroid.entities.Person;
 import java.io.Serializable;
 import java.util.List;
@@ -18,7 +20,7 @@ import javax.persistence.criteria.Root;
  */
 @Singleton
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
-public class PersonDaoImp implements IDaoLocal<Person>, IDaoRemote<Person>, Serializable {
+public class PersonDaoImp implements IDaoPersonLocal<Person>, IDaoPersonRemote<Person>, Serializable {
 
     @PersistenceContext
     EntityManager em;
@@ -34,7 +36,7 @@ public class PersonDaoImp implements IDaoLocal<Person>, IDaoRemote<Person>, Seri
     }
 
     @Override
-    public Person find(Integer id) {
+    public Person findById(Integer id) {
         return em.find(Person.class, id);
     }
 
@@ -50,7 +52,7 @@ public class PersonDaoImp implements IDaoLocal<Person>, IDaoRemote<Person>, Seri
     }
 
     @Override
-    public void delete(Integer id) {
+    public void deleteById(Integer id) {
         String sql = "DELETE FROM Person p WHERE p.id = :id";
         Query query = em.createQuery(sql);
         query.setParameter("id", id).executeUpdate();
@@ -63,7 +65,7 @@ public class PersonDaoImp implements IDaoLocal<Person>, IDaoRemote<Person>, Seri
         Query query = em.createQuery(criteriaQuery).setFirstResult(startPosition).setMaxResults(maxResult);
         return query.getResultList();
     }
-    
+
     @Override
     public int count() {
         CriteriaQuery criteriaQuery = em.getCriteriaBuilder().createQuery();

@@ -1,13 +1,13 @@
 package com.crunchdroid.dao;
 
-import javax.ejb.Local;
+import javax.ejb.Remote;
 
 /**
  *
  * @author Riad YOUSFI
  * @param <E> entity
  */
-@Local
-public interface IDaoLocal<E> extends IDao<E> {
+@Remote
+public interface IDaoUserRemote<E> extends IDao<E> {
 
 }

@@ -1,8 +1,8 @@
 package com.crunchdroid.controller;
 
-import com.crunchdroid.entities.Person;
+import com.crunchdroid.entities.User;
 import com.crunchdroid.helper.PaginationHelper;
-import com.crunchdroid.services.IPersonServiceLocal;
+import com.crunchdroid.services.IUserServiceLocal;
 import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -16,21 +16,21 @@ import javax.faces.model.ListDataModel;
  */
 @ManagedBean
 @SessionScoped
-public class PersonController implements Serializable {
+public class UserController implements Serializable {
 
     @EJB
-    private IPersonServiceLocal personService;
+    private IUserServiceLocal userService;
 
     private PaginationHelper pagination;
 
-    private DataModel people = null;
+    private DataModel users = null;
 
     private Integer id;
     private String firstname;
     private String lastname;
     private Integer age;
 
-    public PersonController() {
+    public UserController() {
     }
 
     public PaginationHelper getPagination() {
@@ -38,24 +38,24 @@ public class PersonController implements Serializable {
             pagination = new PaginationHelper(4) {
                 @Override
                 public int getItemsCount() {
-                    return personService.count();
+                    return userService.count();
                 }
 
                 @Override
                 public DataModel createPageDataModel() {
-                    return new ListDataModel(personService.findRange(getFirstItem(), getPageSize()));
+                    return new ListDataModel(userService.findRange(getFirstItem(), getPageSize()));
                 }
             };
         }
         return pagination;
     }
 
-    public DataModel getPeople() {
-        if (people == null) {
+    public DataModel getUsers() {
+        if (users == null) {
             getPagination().getItemsCount();
-            people = getPagination().createPageDataModel();
+            users = getPagination().createPageDataModel();
         }
-        return people;
+        return users;
     }
 
     public Integer getId() {
@@ -91,8 +91,8 @@ public class PersonController implements Serializable {
     }
 
     public String delete(Integer id) {
-        personService.deleteById(id);
-        people = null;
+        userService.deleteById(id);
+        users = null;
         pagination = null;
         return goList();
     }
@@ -102,18 +102,18 @@ public class PersonController implements Serializable {
     }
 
     public String save() {
-        Person p = new Person();
+        User p = new User();
         p.setFirstname(firstname);
         p.setLastname(lastname);
         p.setAge(age);
-        personService.save(p);
-        people = null;
+        userService.save(p);
+        users = null;
         pagination = null;
         return goList();
     }
 
     public String goEdit(Integer id) {
-        Person p = (Person) personService.findById(id);
+        User p = (User) userService.findById(id);
         this.id = p.getId();
         this.firstname = p.getFirstname();
         this.lastname = p.getLastname();
@@ -122,13 +122,13 @@ public class PersonController implements Serializable {
     }
 
     public String update() {
-        Person p = new Person();
+        User p = new User();
         p.setId(id);
         p.setFirstname(firstname);
         p.setLastname(lastname);
         p.setAge(age);
-        personService.update(p);
-        people = null;
+        userService.update(p);
+        users = null;
         return goList();
     }
 
@@ -142,19 +142,19 @@ public class PersonController implements Serializable {
 
     public String previous() {
         getPagination().previousPage();
-        people = null;
+        users = null;
         return "List";
     }
 
     public String next() {
         getPagination().nextPage();
-        people = null;
+        users = null;
         return "List";
     }
 
     public String goPage(int page) {
         getPagination().goPage(page);
-        people = null;
+        users = null;
         return "List";
     }
 

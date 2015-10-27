@@ -38,9 +38,6 @@ public abstract class PaginationHelper {
 
     public int getNbPage() {
         nbPage = (int) Math.ceil(Double.valueOf(getItemsCount()) / Double.valueOf(pageSize));
-        System.out.println("Math.ceil ::: " +  Math.ceil(Double.valueOf(getItemsCount()) / Double.valueOf(pageSize)));
-        System.out.println("getItemsCount ::: " + getItemsCount());
-        System.out.println("getNbPage ::: " + nbPage);
         return nbPage;
     }
 

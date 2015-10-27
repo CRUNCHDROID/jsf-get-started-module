@@ -1,7 +1,9 @@
-package com.crunchdroid.services;
+package com.crunchdroid.services.impl;
 
-import com.crunchdroid.dao.IDaoLocal;
+import com.crunchdroid.dao.IDaoPersonLocal;
 import com.crunchdroid.entities.Person;
+import com.crunchdroid.services.IPersonServiceLocal;
+import com.crunchdroid.services.IPersonServiceRemote;
 import java.io.Serializable;
 import java.util.List;
 import javax.ejb.EJB;
@@ -15,10 +17,10 @@ import javax.ejb.TransactionAttributeType;
  */
 @Singleton
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
-public class IPersonServiceImp implements IServiceLocal<Person>, IServiceRemote<Person>, Serializable {
+public class IPersonServiceImp implements IPersonServiceLocal<Person>, IPersonServiceRemote<Person>, Serializable {
 
     @EJB
-    private IDaoLocal<Person> dao;
+    private IDaoPersonLocal<Person> dao;
 
     @Override
     public void save(Person person) {
@@ -31,8 +33,8 @@ public class IPersonServiceImp implements IServiceLocal<Person>, IServiceRemote<
     }
 
     @Override
-    public Person find(Integer id) {
-        return dao.find(id);
+    public Person findById(Integer id) {
+        return dao.findById(id);
     }
 
     @Override
@@ -46,8 +48,8 @@ public class IPersonServiceImp implements IServiceLocal<Person>, IServiceRemote<
     }
 
     @Override
-    public void delete(Integer id) {
-        dao.delete(id);
+    public void deleteById(Integer id) {
+        dao.deleteById(id);
     }
 
     @Override
