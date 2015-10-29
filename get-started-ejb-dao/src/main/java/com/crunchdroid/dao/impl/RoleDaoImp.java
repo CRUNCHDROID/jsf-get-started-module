@@ -3,6 +3,7 @@ package com.crunchdroid.dao.impl;
 import com.crunchdroid.dao.IDaoRoleLocal;
 import com.crunchdroid.dao.IDaoRoleRemote;
 import com.crunchdroid.entities.Role;
+import com.crunchdroid.util.LogSQL;
 import java.io.Serializable;
 import java.util.List;
 import javax.ejb.Singleton;
@@ -38,24 +39,16 @@ public class RoleDaoImp implements IDaoRoleLocal<Role>, IDaoRoleRemote<Role>, Se
     }
 
     @Override
-    public Role findById(Integer id) {
-        CriteriaBuilder builder = em.getCriteriaBuilder();
-        CriteriaQuery<Role> query = builder.createQuery(Role.class);
-        Root<Role> r = query.from(Role.class);
-        query.select(r).where(builder.equal(r.get("id"), id));
-        System.out.println(query.toString());
-
-        return em.createQuery(query).getSingleResult();
-    }
-
-    @Override
     public List<Role> findAll() {
-        CriteriaQuery<Role> query = em.getCriteriaBuilder().createQuery(Role.class);
-        Root<Role> r = query.from(Role.class);
-        query.select(r);
-        System.out.println(query.toString());
-        
-        return em.createQuery(query).getResultList();
+        CriteriaQuery<Role> cq = em.getCriteriaBuilder().createQuery(Role.class);
+        Root<Role> r = cq.from(Role.class);
+        cq.select(r);
+
+        Query q = em.createQuery(cq);
+
+        LogSQL.getSqlString(em, q);
+
+        return q.getResultList();
     }
 
     @Override
@@ -87,6 +80,16 @@ public class RoleDaoImp implements IDaoRoleLocal<Role>, IDaoRoleRemote<Role>, Se
         Root<Role> r = criteriaQuery.from(Role.class);
         criteriaQuery.select(em.getCriteriaBuilder().count(r));
         return ((Long) em.createQuery(criteriaQuery).getSingleResult()).intValue();
+    }
+
+    @Override
+    public EntityManager getEntityManager() {
+        return em;
+    }
+
+    @Override
+    public Class<Role> getEntity() {
+        return Role.class;
     }
 
 }

@@ -9,7 +9,7 @@ import javax.ejb.Local;
  * @param <E> entity
  */
 @Local
-public interface IDaoPersonLocal<E> extends IDao<E> {
+public interface IDaoPersonLocal<E> extends IDao<E>{
 
     public List<E> findRange(int startPosition, int maxResult);
 

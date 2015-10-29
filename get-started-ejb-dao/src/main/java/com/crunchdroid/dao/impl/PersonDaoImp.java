@@ -36,11 +36,6 @@ public class PersonDaoImp implements IDaoPersonLocal<Person>, IDaoPersonRemote<P
     }
 
     @Override
-    public Person findById(Integer id) {
-        return em.find(Person.class, id);
-    }
-
-    @Override
     public List<Person> findAll() {
         String query = "SELECT p FROM Person p";
         return em.createQuery(query).getResultList();
@@ -73,6 +68,16 @@ public class PersonDaoImp implements IDaoPersonLocal<Person>, IDaoPersonRemote<P
         criteriaQuery.select(em.getCriteriaBuilder().count(root));
         Query query = em.createQuery(criteriaQuery);
         return ((Long) query.getSingleResult()).intValue();
+    }
+
+    @Override
+    public EntityManager getEntityManager() {
+        return em;
+    }
+
+    @Override
+    public Class<Person> getEntity() {
+        return Person.class;
     }
 
 }

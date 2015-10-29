@@ -37,17 +37,6 @@ public class UserDaoImp implements IDaoUserLocal<User>, IDaoUserRemote<User>, Se
     }
 
     @Override
-    public User findById(Integer id) {
-        CriteriaBuilder builder = em.getCriteriaBuilder();
-        CriteriaQuery<User> query = builder.createQuery(User.class);
-        Root<User> r = query.from(User.class);
-        query.select(r).where(builder.equal(r.get("id"), id));
-        System.out.println(query.toString());
-
-        return em.createQuery(query).getSingleResult();
-    }
-
-    @Override
     public List<User> findAll() {
         CriteriaQuery<User> query = em.getCriteriaBuilder().createQuery(User.class);
         Root<User> r = query.from(User.class);
@@ -64,13 +53,13 @@ public class UserDaoImp implements IDaoUserLocal<User>, IDaoUserRemote<User>, Se
 
     @Override
     public void deleteById(Integer id) {
-        CriteriaBuilder builder = em.getCriteriaBuilder();
-        CriteriaDelete<User> delete = builder.createCriteriaDelete(User.class);
-        Root<User> r = delete.from(User.class);
-        delete.where(builder.equal(r.get("id"), id));
-        System.out.println(delete.toString());
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaDelete<User> cd = cb.createCriteriaDelete(User.class);
+        Root<User> r = cd.from(User.class);
+        cd.where(cb.equal(r.get("id"), id));
+        System.out.println(cd.toString());
 
-        em.createQuery(delete).executeUpdate();
+        em.createQuery(cd).executeUpdate();
     }
 
     @Override
@@ -86,6 +75,16 @@ public class UserDaoImp implements IDaoUserLocal<User>, IDaoUserRemote<User>, Se
         Root<User> r = criteriaQuery.from(User.class);
         criteriaQuery.select(em.getCriteriaBuilder().count(r));
         return ((Long) em.createQuery(criteriaQuery).getSingleResult()).intValue();
+    }
+
+    @Override
+    public EntityManager getEntityManager() {
+        return em;
+    }
+
+    @Override
+    public Class<User> getEntity() {
+        return User.class;
     }
 
 }

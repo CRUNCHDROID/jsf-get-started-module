@@ -26,9 +26,8 @@ public class UserController implements Serializable {
     private DataModel users = null;
 
     private Integer id;
-    private String firstname;
-    private String lastname;
-    private Integer age;
+    private String username;
+    private String password;
 
     public UserController() {
     }
@@ -66,28 +65,28 @@ public class UserController implements Serializable {
         this.id = id;
     }
 
-    public String getFirstname() {
-        return firstname;
+    public IUserServiceLocal getUserService() {
+        return userService;
     }
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
+    public void setUserService(IUserServiceLocal userService) {
+        this.userService = userService;
     }
 
-    public String getLastname() {
-        return lastname;
+    public String getUsername() {
+        return username;
     }
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public Integer getAge() {
-        return age;
+    public String getPassword() {
+        return password;
     }
 
-    public void setAge(Integer age) {
-        this.age = age;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String delete(Integer id) {
@@ -103,9 +102,8 @@ public class UserController implements Serializable {
 
     public String save() {
         User p = new User();
-        p.setFirstname(firstname);
-        p.setLastname(lastname);
-        p.setAge(age);
+        p.setUsername(username);
+        p.setPassword(password);
         userService.save(p);
         users = null;
         pagination = null;
@@ -115,18 +113,16 @@ public class UserController implements Serializable {
     public String goEdit(Integer id) {
         User p = (User) userService.findById(id);
         this.id = p.getId();
-        this.firstname = p.getFirstname();
-        this.lastname = p.getLastname();
-        this.age = p.getAge();
+        this.username = p.getUsername();
+        this.password = p.getPassword();
         return "Edit";
     }
 
     public String update() {
         User p = new User();
         p.setId(id);
-        p.setFirstname(firstname);
-        p.setLastname(lastname);
-        p.setAge(age);
+        p.setUsername(username);
+        p.setPassword(password);
         userService.update(p);
         users = null;
         return goList();
@@ -134,9 +130,8 @@ public class UserController implements Serializable {
 
     public String goList() {
         this.id = null;
-        this.firstname = null;
-        this.lastname = null;
-        this.age = null;
+        this.username = null;
+        this.password = null;
         return "List";
     }
 
