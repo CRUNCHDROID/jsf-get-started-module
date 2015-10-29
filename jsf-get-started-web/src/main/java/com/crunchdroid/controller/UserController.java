@@ -1,9 +1,12 @@
 package com.crunchdroid.controller;
 
+import com.crunchdroid.entities.Role;
 import com.crunchdroid.entities.User;
 import com.crunchdroid.helper.PaginationHelper;
+import com.crunchdroid.services.IRoleServiceLocal;
 import com.crunchdroid.services.IUserServiceLocal;
 import java.io.Serializable;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -21,13 +24,18 @@ public class UserController implements Serializable {
     @EJB
     private IUserServiceLocal userService;
 
+    @EJB
+    private IRoleServiceLocal roleService;
+
     private PaginationHelper pagination;
 
     private DataModel users = null;
 
     private Integer id;
+    private Integer roleId;
     private String username;
     private String password;
+    private List<Role> roles;
 
     public UserController() {
     }
@@ -42,7 +50,11 @@ public class UserController implements Serializable {
 
                 @Override
                 public DataModel createPageDataModel() {
-                    return new ListDataModel(userService.findRange(getFirstItem(), getPageSize()));
+                    List<User> l = userService.findRange(getFirstItem(), getPageSize());
+                    for (User u : l) {
+                        System.out.println(u);
+                    }
+                    return new ListDataModel(l);
                 }
             };
         }
@@ -63,6 +75,18 @@ public class UserController implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(Integer roleId) {
+        this.roleId = roleId;
+    }
+
+    public List<Role> getRoles() {
+        return roleService.findAll();
     }
 
     public IUserServiceLocal getUserService() {
@@ -102,8 +126,11 @@ public class UserController implements Serializable {
 
     public String save() {
         User p = new User();
+        Role r = (Role) roleService.findById(roleId);
+        System.out.println(r);
         p.setUsername(username);
         p.setPassword(password);
+        p.setRole(r);
         userService.save(p);
         users = null;
         pagination = null;
@@ -115,6 +142,7 @@ public class UserController implements Serializable {
         this.id = p.getId();
         this.username = p.getUsername();
         this.password = p.getPassword();
+        this.roleId = p.getRole().getId();
         return "Edit";
     }
 
@@ -123,6 +151,7 @@ public class UserController implements Serializable {
         p.setId(id);
         p.setUsername(username);
         p.setPassword(password);
+        p.setRole((Role) roleService.findById(roleId));
         userService.update(p);
         users = null;
         return goList();
@@ -132,6 +161,7 @@ public class UserController implements Serializable {
         this.id = null;
         this.username = null;
         this.password = null;
+        this.roleId = null;
         return "List";
     }
 

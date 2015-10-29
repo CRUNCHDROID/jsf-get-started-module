@@ -2,7 +2,9 @@ package com.crunchdroid.dao.impl;
 
 import com.crunchdroid.dao.IDaoUserLocal;
 import com.crunchdroid.dao.IDaoUserRemote;
+import com.crunchdroid.entities.Role;
 import com.crunchdroid.entities.User;
+import com.crunchdroid.util.LogSQL;
 import java.io.Serializable;
 import java.util.List;
 import javax.ejb.Singleton;
@@ -10,9 +12,11 @@ import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaDelete;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Root;
 
 /**
@@ -27,46 +31,30 @@ public class UserDaoImp implements IDaoUserLocal<User>, IDaoUserRemote<User>, Se
     EntityManager em;
 
     @Override
-    public void save(User user) {
-        em.persist(user);
-    }
-
-    @Override
-    public void update(User user) {
-        em.merge(user);
-    }
-
-    @Override
     public List<User> findAll() {
-        CriteriaQuery<User> query = em.getCriteriaBuilder().createQuery(User.class);
-        Root<User> r = query.from(User.class);
-        query.select(r);
-        System.out.println(query.toString());
-
-        return em.createQuery(query).getResultList();
-    }
-
-    @Override
-    public void delete(User user) {
-        em.remove(user);
-    }
-
-    @Override
-    public void deleteById(Integer id) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaDelete<User> cd = cb.createCriteriaDelete(User.class);
-        Root<User> r = cd.from(User.class);
-        cd.where(cb.equal(r.get("id"), id));
-        System.out.println(cd.toString());
-
-        em.createQuery(cd).executeUpdate();
+        CriteriaQuery<User> cq = cb.createQuery(User.class);
+        Root<User> u = cq.from(User.class);
+        Join<User, Role> r = u.join("role", JoinType.LEFT);
+        cq.multiselect(u, r.get("name"));
+        TypedQuery<User> q = em.createQuery(cq);
+        LogSQL.getSqlString(getEntityManager(), q);
+        return q.getResultList();
     }
 
     @Override
     public List<User> findRange(int startPosition, int maxResult) {
-        CriteriaQuery criteriaQuery = em.getCriteriaBuilder().createQuery();
-        criteriaQuery.select(criteriaQuery.from(User.class));
-        return em.createQuery(criteriaQuery).setFirstResult(startPosition).setMaxResults(maxResult).getResultList();
+
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery cq = cb.createQuery();
+
+        Root<User> u = cq.from(User.class);
+        cq.select(u);
+        TypedQuery<User> q = em.createQuery(cq).setFirstResult(startPosition).setMaxResults(maxResult);
+
+        LogSQL.getSqlString(getEntityManager(), q);
+
+        return q.getResultList();
     }
 
     @Override

@@ -22,47 +22,41 @@
                             <div class="panel-heading">
                                 <h:outputText value="#{msg.list}"></h:outputText>
                                 <h:form>
-                                    <h:commandLink action="#{personController.goCreate}" value="#{msg.create}" class="btn btn-outline btn-primary btn-xs pull-right"/>
+                                    <h:commandLink action="#{userController.goCreate}" value="#{msg.create}" class="btn btn-outline btn-primary btn-xs pull-right"/>
                                 </h:form>
                             </div>
                             <div class="panel-body">
-                                <h:panelGroup rendered="#{personController.people.rowCount>0}">
+                                <h:panelGroup rendered="#{userController.users.rowCount>0}">
                                     <div class="table-responsive">
-                                        <h:dataTable value="#{personController.people}" var="person" class="table table-hover">
+                                        <h:dataTable value="#{userController.users}" var="user" class="table table-hover">
                                             <h:column>
                                                 <f:facet name="header">
                                                     <h:outputText value="#"/>
                                                 </f:facet>
-                                                <h:outputText value="#{person.id}"/>
+                                                <h:outputText value="#{user.id}"/>
                                             </h:column>
                                             <h:column>
                                                 <f:facet name="header">
-                                                    <h:outputText value="#{msg.firstname}"/>
+                                                    <h:outputText value="#{msg.username}"/>
                                                 </f:facet>
-                                                <h:outputText value="#{person.firstname}"/>
+                                                <h:outputText value="#{user.username}"/>
                                             </h:column>
                                             <h:column>
                                                 <f:facet name="header">
-                                                    <h:outputText value="#{msg.lastname}"/>
+                                                    <h:outputText value="#{msg.role}"/>
                                                 </f:facet>
-                                                <h:outputText value="#{person.lastname}"/>
-                                            </h:column>
-                                            <h:column>
-                                                <f:facet name="header">
-                                                    <h:outputText value="#{msg.age}"/>
-                                                </f:facet>
-                                                <h:outputText value="#{person.age}"/>
+                                                <h:outputText value="#{user.role.name}"/>
                                             </h:column>
                                             <h:column>
                                                 <h:form>
                                                     <f:facet name="header">
                                                         <h:outputText value="&nbsp;"/>
                                                     </f:facet>
-                                                    <h:commandLink action="#{personController.goEdit(person.id)}">
+                                                    <h:commandLink action="#{userController.goEdit(user.id)}">
                                                         <i class="fa fa-pencil fa-fw"></i>
                                                     </h:commandLink>
                                                     <h:outputText value=" "/>
-                                                    <h:commandLink action="#{personController.delete(person.id)}"  onclick="if (!confirm('Really want to do that?'))
+                                                    <h:commandLink action="#{userController.delete(user.id)}"  onclick="if (!confirm('Really want to do that?'))
                                                                 return false">
                                                         <i class="fa fa-trash fa-fw"></i>
                                                     </h:commandLink>
@@ -76,11 +70,11 @@
                                             <nav>
                                                 <h:form>
                                                     <ul class="pagination pull-right">
-                                                        
+
                                                         <c:choose>
-                                                            <c:when test="#{personController.pagination.hasPreviousPage}">
+                                                            <c:when test="#{userController.pagination.hasPreviousPage}">
                                                                 <li class="" >
-                                                                    <h:commandLink action="#{personController.previous}" >
+                                                                    <h:commandLink action="#{userController.previous}" >
                                                                         <span aria-hidden="true">&laquo;</span>
                                                                     </h:commandLink>
                                                                 </li>
@@ -93,10 +87,10 @@
                                                                 </li>
                                                             </c:otherwise>
                                                         </c:choose>
-                                                        
-                                                        <c:forEach begin="1"  end="#{personController.pagination.nbPage}" step="1" var="p">
+
+                                                        <c:forEach begin="1"  end="#{userController.pagination.nbPage}" step="1" var="p">
                                                             <c:choose>
-                                                                <c:when test="#{personController.pagination.page == p-1}">
+                                                                <c:when test="#{userController.pagination.page == p-1}">
                                                                     <li class="active">
                                                                         <a href="#"> 
                                                                             <h:outputText value="#{p}"/><span class="sr-only">(current)</span>
@@ -105,16 +99,16 @@
                                                                 </c:when>
                                                                 <c:otherwise>
                                                                     <li>
-                                                                        <h:commandLink action="#{personController.goPage(p-1)}" value="#{p}" />
+                                                                        <h:commandLink action="#{userController.goPage(p-1)}" value="#{p}" />
                                                                     </li>
                                                                 </c:otherwise>
                                                             </c:choose>
                                                         </c:forEach>
-                                                        
+
                                                         <c:choose>
-                                                            <c:when test="#{personController.pagination.hasNextPage}">
+                                                            <c:when test="#{userController.pagination.hasNextPage}">
                                                                 <li class="" >
-                                                                    <h:commandLink action="#{personController.next}" >
+                                                                    <h:commandLink action="#{userController.next}" >
                                                                         <span aria-hidden="true">&raquo;</span>
                                                                     </h:commandLink>
                                                                 </li>
@@ -127,7 +121,7 @@
                                                                 </li>
                                                             </c:otherwise>
                                                         </c:choose>
-                                                        
+
                                                     </ul>
                                                 </h:form>
                                             </nav>

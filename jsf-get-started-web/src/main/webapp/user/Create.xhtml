@@ -3,16 +3,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      >
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:composition template="/layout.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{msg['title.person']}"></h:outputText>
+            <h:outputText value="#{msg['title.user']}"></h:outputText>
         </ui:define>
         <ui:define name="content">
             <div id="page-wrapper">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header"><h:outputText value="#{msg['title.person']}"></h:outputText></h1>
+                        <h1 class="page-header"><h:outputText value="#{msg['title.user']}"></h:outputText></h1>
                     </div>
                 </div>
                 <div class="row">
@@ -30,18 +30,19 @@
                                     <div class="col-lg-6">
                                         <h:form role="form">
                                             <div class="form-group">
-                                                <h:outputLabel value="#{msg.firstname}"  for="firstname"/>
-                                                <h:inputText value="#{personController.firstname}" class="form-control" id="firstname" required="true" requiredMessage="#{msg['validator.required']}"/>
+                                                <h:outputLabel value="#{msg.username}"  for="username"/>
+                                                <h:inputText value="#{userController.username}" class="form-control" id="username" required="true" requiredMessage="#{msg['validator.required']}"/>
                                             </div>
                                             <div class="form-group">
-                                                <h:outputLabel value="#{msg.lastname}"  for="lastname"/>
-                                                <h:inputText value="#{personController.lastname}" class="form-control" id="lastname" required="true" requiredMessage="#{msg['validator.required']}"/>
+                                                <h:outputLabel value="#{msg.password}"  for="password"/>
+                                                <h:inputText value="#{userController.password}" class="form-control" id="password" required="true" requiredMessage="#{msg['validator.required']}"/>
                                             </div>
                                             <div class="form-group">
-                                                <h:outputLabel value="#{msg.age}" for="age"/>
-                                                <h:inputText value="#{personController.age}" class="form-control" id="age" required="true" requiredMessage="#{msg['validator.required']}"/>
+                                                <h:selectOneMenu label="#{msg.role}" value="#{userController.roleId}" class="form-control">
+                                                    <f:selectItems value="#{userController.roles}" var="r" itemLabel="#{r.name}" itemValue="#{r.id}" />
+                                                </h:selectOneMenu>
                                             </div>
-                                            <h:commandLink action="#{personController.save}" value="#{msg.submit}" class="btn btn-default pull-right"/>
+                                            <h:commandLink action="#{userController.save}" value="#{msg.submit}" class="btn btn-default pull-right"/>
                                         </h:form>
                                     </div>
                                 </div>

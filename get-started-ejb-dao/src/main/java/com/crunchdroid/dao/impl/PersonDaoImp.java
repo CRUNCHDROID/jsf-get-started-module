@@ -3,6 +3,7 @@ package com.crunchdroid.dao.impl;
 import com.crunchdroid.dao.IDaoPersonLocal;
 import com.crunchdroid.dao.IDaoPersonRemote;
 import com.crunchdroid.entities.Person;
+import com.crunchdroid.util.LogSQL;
 import java.io.Serializable;
 import java.util.List;
 import javax.ejb.Singleton;
@@ -26,31 +27,13 @@ public class PersonDaoImp implements IDaoPersonLocal<Person>, IDaoPersonRemote<P
     EntityManager em;
 
     @Override
-    public void save(Person person) {
-        em.persist(person);
-    }
-
-    @Override
-    public void update(Person entity) {
-        em.merge(entity);
-    }
-
-    @Override
     public List<Person> findAll() {
-        String query = "SELECT p FROM Person p";
-        return em.createQuery(query).getResultList();
-    }
-
-    @Override
-    public void delete(Person person) {
-        em.remove(person);
-    }
-
-    @Override
-    public void deleteById(Integer id) {
-        String sql = "DELETE FROM Person p WHERE p.id = :id";
-        Query query = em.createQuery(sql);
-        query.setParameter("id", id).executeUpdate();
+        CriteriaQuery<Person> cq = em.getCriteriaBuilder().createQuery(Person.class);
+        Root<Person> r = cq.from(Person.class);
+        cq.select(r);
+        Query q = em.createQuery(cq);
+        LogSQL.getSqlString(em, q);
+        return q.getResultList();
     }
 
     @Override
