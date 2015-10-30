@@ -17,10 +17,10 @@ import javax.ejb.TransactionAttributeType;
  */
 @Singleton
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
-public class IUserServiceImp implements IUserServiceLocal<User>, IUserServiceRemote<User>, Serializable {
+public class IUserServiceImp implements IUserServiceLocal, IUserServiceRemote, Serializable {
 
     @EJB
-    private IDaoUserLocal<User> dao;
+    private IDaoUserLocal dao;
 
     @Override
     public void save(User user) {
@@ -60,6 +60,11 @@ public class IUserServiceImp implements IUserServiceLocal<User>, IUserServiceRem
     @Override
     public int count() {
         return dao.count();
+    }
+
+    @Override
+    public User findByUsernamePassword(String username, String password) {
+        return dao.findByUsernamePassword(username, password);
     }
 
 }

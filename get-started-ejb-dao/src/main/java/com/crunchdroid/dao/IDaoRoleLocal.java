@@ -1,17 +1,17 @@
 package com.crunchdroid.dao;
 
+import com.crunchdroid.entities.Role;
 import java.util.List;
 import javax.ejb.Local;
 
 /**
  *
  * @author Riad YOUSFI
- * @param <E> entity
  */
 @Local
-public interface IDaoRoleLocal<E> extends IDao<E> {
+public interface IDaoRoleLocal extends IDao<Role> {
 
-    public List<E> findRange(int startPosition, int maxResult);
+    public List<Role> findRange(int startPosition, int maxResult);
 
     public int count();
 }

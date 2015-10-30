@@ -1,17 +1,17 @@
 package com.crunchdroid.services;
 
+import com.crunchdroid.entities.Person;
 import java.util.List;
 import javax.ejb.Local;
 
 /**
  *
  * @author Riad YOUSFI
- * @param <E> entity
  */
 @Local
-public interface IPersonServiceLocal<E> extends IService<E> {
+public interface IPersonServiceLocal extends IService<Person> {
 
-    public List<E> findRange(int startPosition, int maxResult);
+    public List<Person> findRange(int startPosition, int maxResult);
 
     public int count();
 }

@@ -21,7 +21,7 @@ import javax.persistence.criteria.Root;
  */
 @Singleton
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
-public class PersonDaoImp implements IDaoPersonLocal<Person>, IDaoPersonRemote<Person>, Serializable {
+public class PersonDaoImp implements IDaoPersonLocal, IDaoPersonRemote, Serializable {
 
     @PersistenceContext
     EntityManager em;

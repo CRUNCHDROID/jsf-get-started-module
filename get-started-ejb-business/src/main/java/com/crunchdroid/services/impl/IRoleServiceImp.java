@@ -17,10 +17,10 @@ import javax.ejb.TransactionAttributeType;
  */
 @Singleton
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
-public class IRoleServiceImp implements IRoleServiceLocal<Role>, IRoleServiceRemote<Role>, Serializable {
+public class IRoleServiceImp implements IRoleServiceLocal, IRoleServiceRemote, Serializable {
 
     @EJB
-    private IDaoRoleLocal<Role> dao;
+    private IDaoRoleLocal dao;
 
     @Override
     public void save(Role role) {

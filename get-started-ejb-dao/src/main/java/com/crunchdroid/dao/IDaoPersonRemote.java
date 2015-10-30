@@ -1,13 +1,13 @@
 package com.crunchdroid.dao;
 
+import com.crunchdroid.entities.Person;
 import javax.ejb.Remote;
 
 /**
  *
  * @author Riad YOUSFI
- * @param <E> entity
  */
 @Remote
-public interface IDaoPersonRemote<E> extends IDao<E> {
+public interface IDaoPersonRemote extends IDao<Person> {
 
 }

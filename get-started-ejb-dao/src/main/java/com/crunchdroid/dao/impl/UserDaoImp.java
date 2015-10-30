@@ -2,7 +2,6 @@ package com.crunchdroid.dao.impl;
 
 import com.crunchdroid.dao.IDaoUserLocal;
 import com.crunchdroid.dao.IDaoUserRemote;
-import com.crunchdroid.entities.Role;
 import com.crunchdroid.entities.User;
 import com.crunchdroid.util.LogSQL;
 import java.io.Serializable;
@@ -11,12 +10,11 @@ import javax.ejb.Singleton;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Join;
-import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Root;
 
 /**
@@ -25,7 +23,7 @@ import javax.persistence.criteria.Root;
  */
 @Singleton
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
-public class UserDaoImp implements IDaoUserLocal<User>, IDaoUserRemote<User>, Serializable {
+public class UserDaoImp implements IDaoUserLocal, IDaoUserRemote, Serializable {
 
     @PersistenceContext
     EntityManager em;
@@ -33,27 +31,38 @@ public class UserDaoImp implements IDaoUserLocal<User>, IDaoUserRemote<User>, Se
     @Override
     public List<User> findAll() {
         CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<User> cq = cb.createQuery(User.class);
+        CriteriaQuery cq = cb.createQuery();
         Root<User> u = cq.from(User.class);
-        Join<User, Role> r = u.join("role", JoinType.LEFT);
-        cq.multiselect(u, r.get("name"));
+        cq.select(u);
         TypedQuery<User> q = em.createQuery(cq);
-        LogSQL.getSqlString(getEntityManager(), q);
+        LogSQL.getSqlString(em, q);
         return q.getResultList();
     }
 
     @Override
-    public List<User> findRange(int startPosition, int maxResult) {
+    public User findByUsernamePassword(String username, String password) {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<User> cq = cb.createQuery(User.class);
+        Root<User> r = cq.from(User.class);
+        cq.select(r).where(cb.equal(r.get("username"), username), cb.equal(r.get("password"), password));
+        TypedQuery<User> q = em.createQuery(cq);
+        LogSQL.getSqlString(em, q);
+        try {
+            return q.getSingleResult();
+        } catch (NoResultException e) {
+            System.out.println(e);
+            return null;
+        }
+    }
 
+    @Override
+    public List<User> findRange(int startPosition, int maxResult) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery cq = cb.createQuery();
-
         Root<User> u = cq.from(User.class);
         cq.select(u);
         TypedQuery<User> q = em.createQuery(cq).setFirstResult(startPosition).setMaxResults(maxResult);
-
-        LogSQL.getSqlString(getEntityManager(), q);
-
+        LogSQL.getSqlString(em, q);
         return q.getResultList();
     }
 

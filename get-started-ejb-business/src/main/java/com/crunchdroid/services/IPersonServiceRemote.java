@@ -1,13 +1,13 @@
 package com.crunchdroid.services;
 
+import com.crunchdroid.entities.Person;
 import javax.ejb.Remote;
 
 /**
  *
  * @author Riad YOUSFI
- * @param <E> entity
  */
 @Remote
-public interface IPersonServiceRemote<E> extends IService<E> {
+public interface IPersonServiceRemote extends IService<Person> {
 
 }

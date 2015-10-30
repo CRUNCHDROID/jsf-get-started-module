@@ -1,17 +1,17 @@
 package com.crunchdroid.dao;
 
+import com.crunchdroid.entities.Person;
 import java.util.List;
 import javax.ejb.Local;
 
 /**
  *
  * @author Riad YOUSFI
- * @param <E> entity
  */
 @Local
-public interface IDaoPersonLocal<E> extends IDao<E>{
+public interface IDaoPersonLocal extends IDao<Person> {
 
-    public List<E> findRange(int startPosition, int maxResult);
+    public List<Person> findRange(int startPosition, int maxResult);
 
     public int count();
 }

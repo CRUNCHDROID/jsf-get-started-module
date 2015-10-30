@@ -1,18 +1,30 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
     <ul class="nav navbar-top-links navbar-right">                    
         <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                 <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
             </a>
             <ul class="dropdown-menu dropdown-messages">
-                <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                <li>
+                    <a href="#">
+                        <i class="fa fa-user fa-fw"></i> User Profile
+                    </a>
                 </li>
-                <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                <li>
+                    <a href="#">
+                        <i class="fa fa-gear fa-fw"></i> Settings
+                    </a>
                 </li>
                 <li class="divider"></li>
-                <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                <li>
+                    <h:form>
+                        <h:commandLink action="#{authenticationController.logout}" >
+                            <i class="fa fa-sign-out fa-fw"></i> Logout
+                        </h:commandLink>
+                    </h:form>
                 </li>
             </ul>
         </li>
