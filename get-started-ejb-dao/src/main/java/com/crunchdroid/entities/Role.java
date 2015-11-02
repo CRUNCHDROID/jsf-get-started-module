@@ -12,6 +12,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -19,6 +20,7 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table
+@XmlRootElement
 public class Role implements Serializable {
 
     private static final long serialVersionUID = 1L;
