@@ -2,10 +2,14 @@ package com.crunchdroid.services.impl;
 
 import com.crunchdroid.dao.IDaoPersonLocal;
 import com.crunchdroid.entities.Person;
+import com.crunchdroid.jms.services.util.ValidatorException;
 import com.crunchdroid.services.IPersonServiceLocal;
 import com.crunchdroid.services.IPersonServiceRemote;
 import java.io.Serializable;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.Resource;
@@ -37,6 +41,43 @@ public class IPersonServiceImp implements IPersonServiceLocal, IPersonServiceRem
 
     @EJB
     private IDaoPersonLocal dao;
+
+    @Override
+    public void save(String firstname, String lastname, Date birthDate, String email) throws ValidatorException {
+        Map<String, String> errors = new HashMap();
+
+        Person p = new Person();
+
+        try {
+            p.setFirstname(firstname);
+        } catch (Exception e) {
+            errors.put("firstname", e.getMessage());
+        }
+
+        try {
+            p.setLastname(lastname);
+        } catch (Exception e) {
+            errors.put("lastname", e.getMessage());
+        }
+
+        try {
+            p.setBirthDate(birthDate);
+        } catch (Exception e) {
+            errors.put("birthDate", e.getMessage());
+        }
+
+        try {
+            p.setEmail(email);
+        } catch (Exception e) {
+            errors.put("email", e.getMessage());
+        }
+
+        if (errors.isEmpty()) {
+            save(p);
+        } else {
+            throw new ValidatorException(errors);
+        }
+    }
 
     @Override
     public void save(Person person) {
