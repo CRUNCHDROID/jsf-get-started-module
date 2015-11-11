@@ -1,5 +1,6 @@
 package com.crunchdroid.entities;
 
+import com.crunchdroid.validator.NotEmpty;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
@@ -35,24 +36,26 @@ public class Person implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Size(max = 45, message = "Size 45")
     @NotNull(message = "NotNull firstname")
+    @NotEmpty(message = "NotEmpty firstname")
+    @Size(max = 45, message = "Size 45")
     @Column(name = "firstname")
     private String firstname;
 
-    @Size(max = 45, message = "Size 45")
     @NotNull(message = "NotNull lastname")
+    @NotEmpty(message = "NotEmpty lastname")
+    @Size(max = 45, message = "Size 45")
     @Column(name = "lastname")
     private String lastname;
 
     @NotNull(message = "NotNull birthDate")
-    @Pattern(regexp = "(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/((19|20)\\d\\d)", message = "Pattern birthDate")
-    @Temporal(TemporalType.DATE)
     @Past(message = "Past birthDate")
+    @Temporal(TemporalType.DATE)
     @Column(name = "birth_date")
     private Date birthDate;
 
     @NotNull(message = "NotNull email")
+    @NotEmpty(message = "NotEmpty email")
     @Pattern(regexp = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$", message = "Pattern email")
     @Column(name = "email")
     private String email;

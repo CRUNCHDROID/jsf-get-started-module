@@ -51,7 +51,9 @@
                                                 <f:facet name="header">
                                                     <h:outputText value="#{msg.bithdate}"/>
                                                 </f:facet>
-                                                <h:outputText value="#{person.birthDate}"/>
+                                                <h:outputText value="#{person.birthDate}">
+                                                    <f:convertDateTime type="date" pattern="dd/MM/yyyy"  />
+                                                </h:outputText>
                                             </h:column>
                                             <h:column>
                                                 <f:facet name="header">
@@ -82,7 +84,7 @@
                                             <nav>
                                                 <h:form>
                                                     <ul class="pagination pull-right">
-                                                        
+
                                                         <c:choose>
                                                             <c:when test="#{personController.pagination.hasPreviousPage}">
                                                                 <li class="" >
@@ -99,7 +101,7 @@
                                                                 </li>
                                                             </c:otherwise>
                                                         </c:choose>
-                                                        
+
                                                         <c:forEach begin="1"  end="#{personController.pagination.nbPage}" step="1" var="p">
                                                             <c:choose>
                                                                 <c:when test="#{personController.pagination.page == p-1}">
@@ -116,7 +118,7 @@
                                                                 </c:otherwise>
                                                             </c:choose>
                                                         </c:forEach>
-                                                        
+
                                                         <c:choose>
                                                             <c:when test="#{personController.pagination.hasNextPage}">
                                                                 <li class="" >
@@ -133,7 +135,7 @@
                                                                 </li>
                                                             </c:otherwise>
                                                         </c:choose>
-                                                        
+
                                                     </ul>
                                                 </h:form>
                                             </nav>

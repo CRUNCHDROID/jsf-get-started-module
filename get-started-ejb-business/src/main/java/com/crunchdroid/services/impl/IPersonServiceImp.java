@@ -43,43 +43,6 @@ public class IPersonServiceImp implements IPersonServiceLocal, IPersonServiceRem
     private IDaoPersonLocal dao;
 
     @Override
-    public void save(String firstname, String lastname, Date birthDate, String email) throws ValidatorException {
-        Map<String, String> errors = new HashMap();
-
-        Person p = new Person();
-
-        try {
-            p.setFirstname(firstname);
-        } catch (Exception e) {
-            errors.put("firstname", e.getMessage());
-        }
-
-        try {
-            p.setLastname(lastname);
-        } catch (Exception e) {
-            errors.put("lastname", e.getMessage());
-        }
-
-        try {
-            p.setBirthDate(birthDate);
-        } catch (Exception e) {
-            errors.put("birthDate", e.getMessage());
-        }
-
-        try {
-            p.setEmail(email);
-        } catch (Exception e) {
-            errors.put("email", e.getMessage());
-        }
-
-        if (errors.isEmpty()) {
-            save(p);
-        } else {
-            throw new ValidatorException(errors);
-        }
-    }
-
-    @Override
     public void save(Person person) {
         dao.save(person);
         try {
