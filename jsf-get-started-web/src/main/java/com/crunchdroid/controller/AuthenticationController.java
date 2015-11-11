@@ -3,10 +3,10 @@ package com.crunchdroid.controller;
 import com.crunchdroid.bean.SessionBean;
 import com.crunchdroid.entities.User;
 import com.crunchdroid.services.IUserServiceLocal;
-import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.servlet.http.HttpSession;
 
 /**
