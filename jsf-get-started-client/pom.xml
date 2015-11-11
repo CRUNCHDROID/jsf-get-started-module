@@ -7,9 +7,10 @@
     <packaging>jar</packaging>
     <dependencies>
         <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>get-started-ejb-dao</artifactId>
-            <version>${project.version}</version>
+            <groupId>com.sun.jersey</groupId>
+            <artifactId>jersey-client</artifactId>
+            <version>1.8</version>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
@@ -17,13 +18,26 @@
             <version>${project.version}</version>
         </dependency>
         <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>get-started-ejb-dao</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.glassfish.appclient</groupId>
             <artifactId>gf-client</artifactId>
-            <version>3.1.1</version>
+            <version>3.2-b06</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.eclipse.persistence</groupId>
                     <artifactId>javax.persistence</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.eclipse.persistence</groupId>
+                    <artifactId>org.eclipse.persistence.antlr</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.eclipse.persistence</groupId>
+                    <artifactId>org.eclipse.persistence.asm</artifactId>
                 </exclusion>
                 <exclusion>
                     <groupId>org.eclipse.persistence</groupId>
@@ -35,15 +49,7 @@
                 </exclusion>
                 <exclusion>
                     <groupId>org.eclipse.persistence</groupId>
-                    <artifactId>org.eclipse.persistence.antlr</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.eclipse.persistence</groupId>
                     <artifactId>org.eclipse.persistence.jpa.modelgen</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.eclipse.persistence</groupId>
-                    <artifactId>org.eclipse.persistence.asm</artifactId>
                 </exclusion>
                 <exclusion>
                     <groupId>org.eclipse.persistence</groupId>
@@ -54,7 +60,7 @@
     </dependencies>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>1.7</maven.compiler.source>
-        <maven.compiler.target>1.7</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
 </project>

@@ -38,8 +38,12 @@
                                                 <h:inputText value="#{personController.lastname}" class="form-control" id="lastname" required="true" requiredMessage="#{msg['validator.required']}"/>
                                             </div>
                                             <div class="form-group">
-                                                <h:outputLabel value="#{msg.age}" for="age"/>
-                                                <h:inputText value="#{personController.age}" class="form-control" id="age" required="true" requiredMessage="#{msg['validator.required']}"/>
+                                                <h:outputLabel value="#{msg.email}" for="email"/>
+                                                <h:inputText value="#{personController.email}" class="form-control" id="email" required="true" requiredMessage="#{msg['validator.required']}"/>
+                                            </div>
+                                            <div class="form-group">
+                                                <h:outputLabel value="#{msg.bithdate}" for="birthdate"/>
+                                                <h:inputText value="#{personController.birthDate}" class="form-control" id="birthdate" required="true" requiredMessage="#{msg['validator.required']}"/>
                                             </div>
                                             <h:commandLink action="#{personController.save}" value="#{msg.submit}" class="btn btn-default pull-right"/>
                                         </h:form>

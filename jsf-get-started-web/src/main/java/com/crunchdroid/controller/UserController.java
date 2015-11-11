@@ -51,9 +51,6 @@ public class UserController implements Serializable {
                 @Override
                 public DataModel createPageDataModel() {
                     List<User> l = userService.findRange(getFirstItem(), getPageSize());
-                    for (User u : l) {
-                        System.out.println(u);
-                    }
                     return new ListDataModel(l);
                 }
             };
