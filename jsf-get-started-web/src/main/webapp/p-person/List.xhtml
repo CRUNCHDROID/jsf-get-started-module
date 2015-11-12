@@ -23,37 +23,33 @@
                                 <h:outputText value="#{msg.list}"></h:outputText>
                             </div>
                             <div class="panel-body">
-                                <h:panelGroup rendered="#{pfPersonController.people.rowCount>0}">
-                                    <div class="table-responsive">
-                                        <h:form>
-                                            <p:dataTable value="#{pfPersonController.people}" 
-                                                         var="person" 
-                                                         rows="20" 
-                                                         paginator="true"
-                                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                                         rowsPerPageTemplate="5,10,15"
-                                                         >
-                                                <p:column headerText="#">
-                                                    <h:outputText value="#{person.id}"/>
-                                                </p:column>
-                                                <p:column headerText="#{msg.firstname}">
-                                                    <h:outputText value="#{person.firstname}"/>
-                                                </p:column>
-                                                <p:column headerText="#{msg.lastname}">
-                                                    <h:outputText value="#{person.lastname}"/>
-                                                </p:column>
-                                                <p:column headerText="#{msg.bithdate}">
-                                                    <h:outputText value="#{person.birthDate}">
-                                                        <f:convertDateTime type="date" pattern="dd/MM/yyyy"/>
-                                                    </h:outputText>
-                                                </p:column>
-                                                <p:column headerText="#{msg.email}">
-                                                    <h:outputText value="#{person.email}"/>
-                                                </p:column>
-                                            </p:dataTable>
-                                        </h:form>
-                                    </div>
-                                </h:panelGroup>
+                                <div class="table-responsive">
+                                    <h:form>
+                                        <p:dataTable value="#{pfPersonController.people}" 
+                                                     var="person" 
+                                                     rows="5" 
+                                                     paginator="true"
+                                                     >
+                                            <p:column headerText="#">
+                                                <h:outputText value="#{person.id}"/>
+                                            </p:column>
+                                            <p:column headerText="#{msg.firstname}">
+                                                <h:outputText value="#{person.firstname}"/>
+                                            </p:column>
+                                            <p:column headerText="#{msg.lastname}">
+                                                <h:outputText value="#{person.lastname}"/>
+                                            </p:column>
+                                            <p:column headerText="#{msg.bithdate}">
+                                                <h:outputText value="#{person.birthDate}">
+                                                    <f:convertDateTime type="date" pattern="dd/MM/yyyy"/>
+                                                </h:outputText>
+                                            </p:column>
+                                            <p:column headerText="#{msg.email}">
+                                                <h:outputText value="#{person.email}"/>
+                                            </p:column>
+                                        </p:dataTable>
+                                    </h:form>
+                                </div>
                             </div>
                         </div>
                     </div>
