@@ -14,6 +14,14 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
     
+    <repositories>
+        <repository>
+            <id>prime-repo</id>
+            <name>PrimeFaces Maven Repository</name>
+            <url>http://repository.primefaces.org</url>
+        </repository>
+    </repositories>
+    
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
@@ -48,17 +56,17 @@
             <groupId>taglibs</groupId>
             <artifactId>standard</artifactId>
             <version>1.1.2</version>
-        </dependency>
+        </dependency> 
         <dependency>
             <groupId>org.primefaces</groupId>
             <artifactId>primefaces</artifactId>
-            <version>5.3</version>
-        </dependency>
-        <dependency>
-            <groupId>org.primefaces.extensions</groupId>
-            <artifactId>all-themes</artifactId>
-            <version>1.0.8</version>
-        </dependency>
+            <version>5.3.RC2</version>
+        </dependency> 
+        <dependency>  
+            <groupId>org.primefaces.themes</groupId>  
+            <artifactId>bootstrap</artifactId>  
+            <version>1.0.10</version>  
+        </dependency> 
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
